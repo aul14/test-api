@@ -6,13 +6,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Dashboard extends CI_Controller
 {
 
-
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('curl');
+        $this->load->model('M_dashboard');
     }
-
 
     public function index()
     {
@@ -22,7 +20,7 @@ class Dashboard extends CI_Controller
 
     public function view_data()
     {
-        $result = json_decode($this->curl->simple_get('https://api.samrs.cloud/Asset/Test'), true);
+        $result = $this->M_dashboard->listing();
 
         $data = [];
         foreach ($result['data'] as $key => $d) {
